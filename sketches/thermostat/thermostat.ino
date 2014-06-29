@@ -1,11 +1,13 @@
 //
 // (c) 2014 Konstantin Gredeskoul
+//
+// License: MIT
 
 const int temperaturePin = 0;
 const int sensorPin = 1;
 
-#define THERMOSTAT_MIN_TEMP_F 55
-#define THERMOSTAT_MAX_TEMP_F 90
+#define THERMOSTAT_MIN_TEMP_F 20
+#define THERMOSTAT_MAX_TEMP_F 120
 
 const int pinRed = 13;
 int thresholdTempF = 0;
@@ -21,10 +23,8 @@ void setup()
 void loop()
 {
   readThermostatSetting();
-  readCurrentTemperature();
-  
-  setThermostatStatus();
-  
+  readCurrentTemperature(); 
+  setThermostatStatus(); 
   printTemperature();  
   delay(1000); 
 }
