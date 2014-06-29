@@ -1,4 +1,6 @@
 arduino
 =======
 
-Variou Arduio sketches I created while learning
+Various Arduino sketches I created while learning it.
+
+
