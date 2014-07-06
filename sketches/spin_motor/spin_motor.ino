@@ -1,57 +1,35 @@
 
 
-const int motorPin = 9;
-const int knobPin = 1;
-const int button = 2;
 
-boolean lastButton = LOW;
-boolean currentButton = LOW;
-boolean motorOn = false;
-int runningSpeed = 0; // out of 0-255
-int counter = 0;
+const int knobs[] = {0,1};
+const int motors[] = {9, 10};
+
+int speed[] = {0,0};
+int speedRunning[] = {0,0};
+
+const int number_of_motors = sizeof(motors)/sizeof(motors[0]);
+
+static int counter = 0;
 
 void setup()
 {
-  // Set up the motor pin to be an output:
-
-  pinMode(motorPin, OUTPUT);
-  pinMode(button, INPUT);
-
-  // Set up the serial port:
-
+  for (int m = 0; m < number_of_motors; m++) {
+    pinMode (motors[m], OUTPUT);
+  }
   Serial.begin(9600);
 }
 
 void loop()
 {  
   counter++;
-  /*
-  int val = analogRead(knobPin);
-  Serial.println(val);
-  delay(500);
-  */
-  currentButton = debounce(lastButton);
-  if (lastButton == LOW && currentButton == HIGH) { 
-    motorOn = !motorOn;
-    motorOn ? log("motor ON") : log("motor OFF");
-    log("speed set to", runningSpeed);
-  }
-  lastButton = currentButton;   
-  
-  int knobSpeed = readKnob(0, 255);
-  if (knobSpeed != runningSpeed) { 
-    runningSpeed = knobSpeed;
-  }
+  readSpeed();
+  setMotorSpeed();
   
   if (counter % 50 == 0) { 
-    log("speed is set to", runningSpeed);
+    logSpeeds();
   }
   
-  if (motorOn) { 
-    runMotor(runningSpeed);
-  } else {
-    stopMotor();
-  }
+  delay(50);
 }
 
 void log(char *message) {
@@ -64,35 +42,43 @@ void log(char *message, int value) {
   Serial.println(value); 
 }
 
-
-boolean debounce(boolean last) 
-{
-  boolean current = digitalRead(button);
-  if (last != current) { 
-    delay(5);
-    current = digitalRead(button);
-  }
-
-  return current;     
-}
-
-void runMotor(int motorSpeed)
-{
-  int delayTime = 20;
-  analogWrite(motorPin, motorSpeed);  
-  delay(delayTime);
-}
-
-void stopMotor() {
-  runMotor(0);
-}
-
-int readKnob(int from, int to) {
-  int value = analogRead(knobPin);
+//-------------------------------------------------------------------
+int readKnob(int pin, int from, int to) {
+  int value = analogRead(pin);
   value = map(value, 0, 1023, from, to);
   return value;
 }
 
+//-------------------------------------------------------------------
+void stopMotors() {
+  for (int m = 0; m < number_of_motors; m++) {
+    analogWrite(motors[m], 0);
+  }
+  delay(10);
+}
 
+void setMotorSpeed() {
+  for (int m = 0; m < number_of_motors; m++) {
+     analogWrite(motors[m], speedRunning[m]);
+  }
+  delay(10);
+}
+
+void readSpeed() {
+  for (int m = 0; m < number_of_motors; m++) {
+    int knobSpeed = readKnob(knobs[m], 0, 255);
+    if (knobSpeed != speedRunning[m]) { 
+      speedRunning[m] = knobSpeed;
+    }
+  }
+}
+
+void logSpeeds() {
+  for (int m = 0; m < number_of_motors; m++) {
+    Serial.print("speed of motor ");
+    Serial.print(m);  
+    log("is set to", speedRunning[m]);
+  }
+}
 
 
