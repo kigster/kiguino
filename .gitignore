@@ -1,1 +1,9 @@
 **/.DS_Store
+**/spec.d
+sketches/**/.project
+sketches/**/.cproject
+sketches/**/.settings
+sketches/**/.ino.cpp
+sketches/**/Release
+sketches/**/arduino
+sketches/**/Libraries
