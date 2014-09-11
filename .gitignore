@@ -1,9 +1,30 @@
-**/.DS_Store
+# Eclipse CDT ignores
+**/.cproject
+**/.ino.cpp
+**/.settings
+**/Release
 **/spec.d
-sketches/**/.project
-sketches/**/.cproject
-sketches/**/.settings
-sketches/**/.ino.cpp
-sketches/**/Release
-sketches/**/arduino
-sketches/**/Libraries
+
+**/.DS_Store
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
