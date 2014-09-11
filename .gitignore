@@ -1,5 +1,5 @@
 # Eclipse CDT ignores
-**/.cproject
+#**/.cproject
 **/.ino.cpp
 **/.settings
 **/Release
