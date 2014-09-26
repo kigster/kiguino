@@ -19,7 +19,11 @@
 
 #include <NewPing.h>
 
-#define SONAR_MIN_FREQUENCY 30
+// from the spec sheet: Working Frequency 40Hz
+#define SONAR_MIN_FREQUENCY 25
+// from the spec:
+// Max Range 4m, Min Range 2cm
+#define SONAR_MAX_RANGE 400
 
 class Sonar {
 public:
@@ -29,6 +33,7 @@ public:
 			uint16_t distanceThreshold); // trigger "detected" if within this range (must be < maxDistance)
 	bool detected(void);
 	uint16_t getDistance();
+	uint16_t getMaxDistance();
 	void setDistanceThreshold(uint16_t distanceThreshold);
 	uint16_t getDistanceThreshold();
 private:

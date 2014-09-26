@@ -51,3 +51,6 @@ void Sonar::setDistanceThreshold(uint16_t distance) {
 uint16_t Sonar::getDistanceThreshold() {
 	return _distanceThreshold;
 }
+uint16_t Sonar::getMaxDistance() {
+	return _maxDistance;
+}
