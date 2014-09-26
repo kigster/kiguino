@@ -26,7 +26,7 @@ typedef struct configStruct  {
 } configType;
 
 char buffer[10];
-configType config = { 2000 };
+configType config = { 3000 };
 
 
 void readBMP(int timerId) {
@@ -69,11 +69,11 @@ void displayTemperatureDHT(int timerId) {
 }
 
 void displayPressure(int timerId) {
-	SevenSegment.printUnits(config.pressureInches, "I");
+	SevenSegment.printUnits(config.pressureInches, "i");
 }
 
 void displayHumiduty(int timerId) {
-	SevenSegment.printUnits(config.humidityPercent, "H");
+	SevenSegment.printUnits(config.humidityPercent, "h");
 }
 
 
