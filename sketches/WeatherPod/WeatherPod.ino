@@ -6,54 +6,13 @@
  * 		Time
  * 		DHT
  * 		Adafruit_BMP085_Unified
- * 		Adafruit_Sensor
- * 		DS1307RTC
- * 		LiquidCrystal_I2C2004V1
+ * 		Adafruit_Sensor          for pressure, temp, humidity
+ * 		DS1307RTC                for clocl
+ * 		LiquidCrystal_I2C2004V1  for display
  * 		SimpleTimer
  *
- *
- *
- *
- * 		By carefully watching the pressure on a barometer, you can forecast local weather
- * 		using these simple guidelines:
- *
- * 			Decreasing barometric pressure indicates storms, rain and windy weather.
- *
- * 			Rising barometric pressure indicates fair, dry, and colder weather.
- *
- * 			Slow, regular and moderate falls in pressure suggest a low pressure
- *			area is passing some distance away. Marked changes in the weather are unlikely.
- *
- * 			Small rapid decreases in pressure indicate a nearby change in weather.
- *			They are usually followed by short lasting wind and showers.
- *
- * 			A quick drop in pressure over a short time indicates a storm is likely in 5
- * 			to 6 hours.
- *
- * 			Large, slow and sustained decreasing pressure forecasts a long period of
- *			poor weather. The weather will be more pronounced if the pressure started
- *			rising before it began to drop.
- *
- * 			A rapid rise in pressure, during fair weather and average, or above average
- *			pressure, indicates a low pressure cell is approaching. The pressure will
- *			soon decrease forecasting poorer weather.
- *
- * 			Quickly rising pressure, when the pressure is low, indicates a short period
- *			of fair weather is likely.
- *
- * 			A large, slow and sustained rise in pressure forecasts a long period of good
- *			weather is on its way.
- *
-			Definition of Pressure Tendency Terms
-
-			Term							Pressure Tendency Over 3 Hours
-			Steady							Less than 0.1 mb
-			Rising or falling slowly		0.1 to 1.5 mb
-			Rising or falling				1.6 to 3.5 mb
-			Rising or falling quickly		3.6 to 6.0 mb
-			Rising or falling very rapidly	More than 6.0 mb
- *
  */
+
 
 #include <Arduino.h>
 #include <SimpleTimer.h>
@@ -61,6 +20,7 @@
 #include <LiquidCrystal_I2C.h>
 
 #define DHTTYPE DHT22   // DHT 22  (AM2302)
+
 #include <DHT.h>
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
@@ -72,7 +32,7 @@
 #define LOW_PRESSURE 1002
 #define HIGH_PRESSURE 1020
 
-const uint8_t pinDHT = 2, pin7Segment = 7;
+const uint8_t pinDHT = 2;
 DHT dht(pinDHT, DHTTYPE);
 LiquidCrystal_I2C lcd(0x3F, 20, 4);
 Adafruit_BMP085_Unified bmp = Adafruit_BMP085_Unified(10085);
@@ -232,6 +192,8 @@ void setup() {
 
 	dht.begin();
 	bmp.begin();
+	pinMode(7, OUTPUT);
+	digitalWrite(7, HIGH);
 
 	lcd.init();
 	lcd.backlight();
