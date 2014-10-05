@@ -32,9 +32,11 @@
 #define LOW_PRESSURE 1002
 #define HIGH_PRESSURE 1020
 
+#define COLUMNS 20
+
 const uint8_t pinDHT = 2;
 DHT dht(pinDHT, DHTTYPE);
-LiquidCrystal_I2C lcd(0x3F, 20, 4);
+LiquidCrystal_I2C lcd(0x3F, COLUMNS, 4);
 Adafruit_BMP085_Unified bmp = Adafruit_BMP085_Unified(10085);
 SimpleTimer timer(1);
 
@@ -50,10 +52,10 @@ typedef struct configStruct  {
 } configType;
 
 typedef struct displayStruct {
-	char row[4][20];
+	char row[4][COLUMNS + 1];
 } displayType;
 
-char buffer[20];
+char buffer[COLUMNS];
 displayType display;
 configType config = { 10 };
 
@@ -85,7 +87,7 @@ time_t getTime() {
 	time_t t;
 
 	if ((t = RTC.get())) {
-		sprintf(display.row[0], "%02d/%02d/%4d %02d:%02d:%02d",
+		sprintf(display.row[0], "%02d/%02d/%4d  %02d:%02d:%02d",
 				month(t),
 				day(t),
 				year(t),
@@ -109,33 +111,42 @@ time_t getTime() {
 
 void displayReadings(int timerId) {
 	time_t t = getTime();
+	char temp1[COLUMNS + 1];
+	char temp2[COLUMNS + 1];
+	char temp3[COLUMNS + 1];
 
 	lcd.setCursor(0,0);
 
-	sprintf(display.row[1], "Humidity: %d%%", (int) config.humidityPercent);
-
-	char temp1[20];
-	char temp2[30];
+	ftoa(temp1, config.humidityPercent, 1);
+	sprintf(display.row[1], "Humidity:      %s%%", temp1);
 
 	ftoa(temp1, config.pressureMb, 1);
-
 	// now check the difference in the last 3 hours
 	int hourToCompare = hour(t) - 3; // 3 behind
 	if (hourToCompare < 0)
 		hourToCompare = 24 + hourToCompare; // handle midnight
 
+	// reset hourly pressure when we boot.
+	for (int i = 0; i < 24; i++ ) {
+		if (hourlyPressure[i] == 0) {
+			hourlyPressure[i] = config.pressureMb;
+		}
+	}
+
 	float delta = config.pressureMb - hourlyPressure[hourToCompare];
-	sprintf(temp2, "%s", (delta > 0 ? "^" : "V"));
-	sprintf(display.row[2], "Air: %smb (%s)", temp1, temp2);
+	ftoa(temp2, abs(delta), 1);
+	sprintf(temp3, "%s", (delta > 0 ? "+" : "-"));
+	if (abs(delta) < 0.001 ) sprintf(temp3, " ");
+
+	sprintf(display.row[2], "Air: [%s%s] %smb", temp3, temp2, temp1);
 
 	float tmp = (config.temperatureBMPinF + config.temperatureDHTinF) / 2.0;
 
-	char temp[20];
-	ftoa(temp, 5.0 / 9.0 * (tmp - 32.0), 1);
+	ftoa(temp3, 5.0 / 9.0 * (tmp - 32.0), 1);
 	ftoa(buffer, tmp, 1);
 
-	sprintf(display.row[3], "Temp: %s%cF %s%cC", buffer,
-		DEGREE_SYMBOL, temp,
+	sprintf(display.row[3], "Temp:  %s%cF %s%cC", buffer,
+		DEGREE_SYMBOL, temp3,
 		DEGREE_SYMBOL);
 
 	for (int i = 0; i < 4; i++) {
@@ -176,7 +187,7 @@ void readDHT(int timerId) {
 
 	// Check if any reads failed and exit early (to try again).
 	if (isnan(h) || isnan(f)) {
-		Serial.println("Failed to read from DHT sensor!");
+		Serial.println(F("Failed to read from DHT sensor!"));
 	}
 
 	config.humidityPercent = h;
@@ -202,7 +213,7 @@ void setup() {
 	memset(&display, 0x0, sizeof(displayType));
 	memset(&hourlyPressure, 0x0, sizeof(hourlyPressure)*sizeof(uint16_t));
 
-	Serial.print("Resetting memory structures.");
+	Serial.print(F("Resetting memory structures."));
 	Serial.println(sizeof(displayType));
 	Serial.println(sizeof(hourlyPressure) * sizeof(uint16_t));
 
