@@ -15,7 +15,7 @@ uint8_t	pinIRInput 		= 11,
 MotionSensor motion(pinIRInput, 5000);
 SimpleTimer timer(1);
 
-const uint16_t INACTIVITY_THRESHOLD = 120;
+const uint16_t INACTIVITY_THRESHOLD = 600;
 
 char buffer[90];
 
@@ -50,8 +50,11 @@ void detectMotion(int timerId) {
 }
 
 void showLed(int timerId) {
-	if (state.active && !state.motionDetected) {
-		ledOn = !ledOn;
+	if (state.active) {
+		if (!state.motionDetected) {
+			ledOn = !ledOn;
+		} else
+			ledOn = true;
 	} else {
 		ledOn = false;
 	}
@@ -73,11 +76,10 @@ void switchPower(int timerId) {
 			state.lastStateChangeAt = millis();
 		}
 	}
-	logCurrentState();
 	power(state.active);
 }
 
-void logCurrentState() {
+void logCurrentState(int timerId) {
 
 	printf("Active? %s | Button %s | Motion? %s",
 			(state.active ? "YES" : " NO"),
@@ -114,9 +116,10 @@ void setup(void) {
 	motion.init(5000);
 
 	timer.setInterval( 110,  &detectMotion);
-	timer.setInterval( 100,  &detectButtonPressed);
-	timer.setInterval(1000,  &switchPower);
+	timer.setInterval(  50,  &detectButtonPressed);
+	timer.setInterval( 120,  &switchPower);
 	timer.setInterval( 500,  &showLed);
+	timer.setInterval( 500,  &logCurrentState);
 }
 
 

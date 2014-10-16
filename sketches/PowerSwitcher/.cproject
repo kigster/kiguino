@@ -24,11 +24,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PowerSwitcher/Libraries/NewPing}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PowerSwitcher/Libraries/SimpleTimer}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PowerSwitcher/Libraries/MotionSensor}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PowerSwitcher/Libraries/RotaryEncoderWithButton}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PowerSwitcher/Libraries/SerialLCD}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PowerSwitcher/Libraries/Sonar}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PowerSwitcher/Libraries/EEPROMEx}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PowerSwitcher/Libraries/SoftwareSerial}&quot;"/>
 								</option>
 								<inputType id="it.baeyens.arduino.compiler.cpp.sketch.input.1320226526" name="CPP source files" superClass="it.baeyens.arduino.compiler.cpp.sketch.input"/>
 							</tool>
@@ -39,11 +35,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PowerSwitcher/Libraries/NewPing}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PowerSwitcher/Libraries/SimpleTimer}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PowerSwitcher/Libraries/MotionSensor}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PowerSwitcher/Libraries/RotaryEncoderWithButton}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PowerSwitcher/Libraries/SerialLCD}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PowerSwitcher/Libraries/Sonar}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PowerSwitcher/Libraries/EEPROMEx}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PowerSwitcher/Libraries/SoftwareSerial}&quot;"/>
 								</option>
 								<inputType id="it.baeyens.arduino.compiler.c.sketch.input.1321773733" name="C Source Files" superClass="it.baeyens.arduino.compiler.c.sketch.input"/>
 							</tool>
