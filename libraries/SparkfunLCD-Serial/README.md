@@ -1,4 +1,4 @@
-## SparkfunSerialLCD
+## SparkfunLCD_Serial
 
 Set of simple routines for interfacing with 16x2 LCD serial screen
 by Sparkfun.  I tried using this with another serial LCD screen, and

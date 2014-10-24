@@ -1,5 +1,5 @@
 /*
- * SparkfunSerial7SD.h
+ * Sparkfun7SD_Serial.h
  *
  * Sparkfun 7-Segment Serial Display
  *
@@ -20,31 +20,30 @@
 #endif
 
 #include <SoftwareSerial.h>
-
-#define APOSTROPHE  5
-#define COLON       4
-#define DECIMAL4    3
-#define DECIMAL3    2
-#define DECIMAL2    1
-#define DECIMAL1    0
+#include <Sparkfun7SD.h>
 
 #define SERIAL7SD_BAUD_CONTROL 0x7F
 #define SERIAL_LCD_DEFAULT_HEIGHT 2
 
-const uint32_t baudRates[] = {2400, 4800, 9600, 14400, 19200, 38400, 57600, 76800, 115200, 250000, 500000, 1000000};
+const uint32_t baudRates[] = { 2400, 4800, 9600, 14400, 19200, 38400, 57600,
+		76800, 115200, 250000, 500000, 1000000 };
 const uint8_t numBauds = sizeof(baudRates) / sizeof(uint32_t);
 
-class SparkfunSerial7SD {
+class Sparkfun7SD_Serial : public Sparkfun7SD {
 public:
-	SparkfunSerial7SD(uint8_t pinTx);
-	void init();
-	void resetCursor();
-	void softwareReset();
-	bool setBaud(uint32_t newBaud);
-	void setBrignessPercent(uint8_t percent);
-	void printUnits(float value, char *type);
-	void print(char *message);
-	void write(int value);
+	Sparkfun7SD_Serial(uint8_t pinTx);
+	Sparkfun7SD_Serial();
+
+	virtual void init();
+	virtual void write(int value);
+	virtual void print(String message);
+	virtual void beginWrite();
+	virtual void endWrite();
+
+	virtual void clear();
+	virtual void brightness(uint8_t percent);
+	virtual void printUnits(float value, char *type);
+	virtual void printTime(uint8_t hours, uint8_t minutes, bool colonShown);
 private:
 	uint8_t _pinTx;
 	SoftwareSerial *_Serial7Segment;
