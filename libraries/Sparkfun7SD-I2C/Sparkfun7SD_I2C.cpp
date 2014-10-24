@@ -23,18 +23,7 @@ void Sparkfun7SD_I2C::init() {
 	clear();
 }
 
-void Sparkfun7SD_I2C::print(String message) {
-	beginWrite();
-	clear();
-	Serial.print("printing message: ");
-	Serial.println(message);
-	for (int i = 0; i < DIGITS; i++) {
-		write(message[i]);
-	}
-	endWrite();
-}
-
-void Sparkfun7SD_I2C::write(int value) {
+void Sparkfun7SD_I2C::write(byte value) {
 	Wire.write(value);
 }
 
@@ -46,52 +35,39 @@ void Sparkfun7SD_I2C::endWrite() {
 	Wire.endTransmission();
 }
 
-void Sparkfun7SD_I2C::printTime(uint8_t hours, uint8_t minutes, bool colonShown) {
-	uint8_t h = hours % 12;
-	if (h == 0) {
-		h = 12;
-	}
-	char buffer[DIGITS];
-	sprintf(buffer, "%2d%02d", h, minutes);
-	Serial.print("I2C's buffer is ");
-	Serial.println(buffer);
-	print(buffer);
-	//colonShown ? decimals(COLON) : decimals(0b000000);
-
+void Sparkfun7SD_I2C::print(String message) {
+	beginWrite();
+	Sparkfun7SD::print(message);
+	endWrite();
 }
 
 void Sparkfun7SD_I2C::decimals(byte bitmask) {
 	beginWrite();
-	write(0x77);
-	write(bitmask);
+	Sparkfun7SD::decimals(bitmask);
 	endWrite();
 }
 
 void Sparkfun7SD_I2C::clear() {
 	beginWrite();
-	write(0x76); 			// Reset the display - this forces the cursor to return to the beginning of the display
+	Sparkfun7SD::clear();
 	endWrite();
 }
 
-
-void Sparkfun7SD_I2C::brightness(uint8_t percent) {
+void Sparkfun7SD_I2C::brightness(uint8_t value) {
 	beginWrite();
-	write(0x7A);            // Brightness control command
-	write(percent);         // 0% is dimmest, 100% is brightest
+	Sparkfun7SD::brightness(value);
 	endWrite();
 }
+
 void Sparkfun7SD_I2C::printUnits(float value, char *type) {
-	clear();
-
 	beginWrite();
-	write(0x79); 			// Send the Move Cursor Command
-	write(0x04);			// first digit
-
-	char buffer[DIGITS];
-	uint8_t decimal = (int) (10.0 * (value - ((int) value)));
-	sprintf(buffer, "%2d%d%s", (int) value, decimal, type);
-	print(buffer);
+	Sparkfun7SD::printUnits(value, type);
 	endWrite();
-
-	decimals((byte) (APOSTROPHE | DECIMAL2));
 }
+
+void Sparkfun7SD_I2C::printTime(uint8_t hours, uint8_t minutes, bool colonShown) {
+	beginWrite();
+	Sparkfun7SD::printTime(hours, minutes, colonShown);
+	endWrite();
+}
+

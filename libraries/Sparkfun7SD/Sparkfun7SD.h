@@ -34,11 +34,9 @@
 class Sparkfun7SD {
 public:
 	virtual void init() = 0;
-	virtual void beginWrite() = 0;
-	virtual void write(int value) = 0;
-	virtual void endWrite() = 0;
-	virtual void print(String message) = 0;
+	virtual void write(byte value) = 0;
 
+	virtual void print(String message);
 	virtual void decimals(byte bitmask);
 	virtual void clear();
 	virtual void brightness(uint8_t percent);

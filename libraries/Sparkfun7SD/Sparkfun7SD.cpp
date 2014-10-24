@@ -10,30 +10,31 @@
 #include "Sparkfun7SD.h"
 
 void Sparkfun7SD::clear() {
-	beginWrite();
 	write((byte) 0);
 	write(0x76); 			// Reset the display - this forces the cursor to return to the beginning of the display
-	endWrite();
 }
 
 void Sparkfun7SD::brightness(uint8_t value) {
-	beginWrite();
 	write(0x7A);            // Brightness control command
 	write(value);           // 0% is dimmest, 100% is brightest
-	endWrite();
 }
+
+
+void Sparkfun7SD::print(String message) {
+	Serial.print("printing message: ");
+	Serial.println(message);
+	for (int i = 0; i < DIGITS; i++) {
+		write(message[i]);
+	}
+}
+
 void Sparkfun7SD::printUnits(float value, char *type) {
-	clear();
-
-	beginWrite();
-	write(0x79); 			// Send the Move Cursor Command
-	write(0x04);			// first digit
-
 	char buffer[DIGITS];
 	uint8_t decimal = (int) (10.0 * (value - ((int) value)));
 	sprintf(buffer, "%2d%d%s", (int) value, decimal, type);
+
+	clear();
 	print(buffer);
-	endWrite();
 
 	decimals((byte) (APOSTROPHE | DECIMAL2));
 }
@@ -55,8 +56,6 @@ void Sparkfun7SD::printTime(uint8_t hours, uint8_t minutes, bool colonShown) {
 }
 
 void Sparkfun7SD::decimals(byte bitmask) {
-	beginWrite();
 	write(0x77);
 	write(bitmask);
-	endWrite();
 }
