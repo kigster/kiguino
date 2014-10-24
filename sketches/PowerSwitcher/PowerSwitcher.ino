@@ -15,7 +15,7 @@ uint8_t	pinIRInput 		= 11,
 MotionSensor motion(pinIRInput, 5000);
 SimpleTimer timer(1);
 
-const uint16_t INACTIVITY_THRESHOLD = 600;
+const uint16_t INACTIVITY_THRESHOLD = 360;
 
 char buffer[90];
 
