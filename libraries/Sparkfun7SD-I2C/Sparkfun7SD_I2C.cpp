@@ -35,7 +35,7 @@ void Sparkfun7SD_I2C::endWrite() {
 	Wire.endTransmission();
 }
 
-void Sparkfun7SD_I2C::print(String message) {
+void Sparkfun7SD_I2C::print(char *message) {
 	beginWrite();
 	Sparkfun7SD::print(message);
 	endWrite();

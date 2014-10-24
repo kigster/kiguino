@@ -35,7 +35,7 @@ public:
 
 	virtual void init();
 	virtual void write(byte value);
-	virtual void print(String message);
+	virtual void print(char *message);
 	virtual void beginWrite();
 	virtual void endWrite();
 	virtual void decimals(byte bitmask);

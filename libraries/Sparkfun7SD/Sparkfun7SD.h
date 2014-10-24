@@ -36,7 +36,7 @@ public:
 	virtual void init() = 0;
 	virtual void write(byte value) = 0;
 
-	virtual void print(String message);
+	virtual void print(char *message);
 	virtual void decimals(byte bitmask);
 	virtual void clear();
 	virtual void brightness(uint8_t percent);
