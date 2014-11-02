@@ -21,10 +21,7 @@ void Sparkfun7SD::brightness(uint8_t value) {
 
 
 void Sparkfun7SD::print(char *message) {
-	Serial.print("printing message: ");
-	Serial.println(message);
 	for (int i = 0; i < DIGITS; i++) {
-		Serial.println(message[i]);
 		write(message[i]);
 	}
 }
@@ -46,7 +43,6 @@ void Sparkfun7SD::printTime(uint8_t hours, uint8_t minutes, bool colonShown) {
 		h = 12;
 	}
 	sprintf(_buffer, "%2d%02d", h, minutes);
-	Serial.println(_buffer);
 	clear();
 	print(_buffer);
 	if (colonShown)
