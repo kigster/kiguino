@@ -32,6 +32,9 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/BedClock/Libraries/Sparkfun7SD}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/BedClock/Libraries/Sparkfun7SD-I2C}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/BedClock/Libraries/SoftwareSerial}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/BedClock/Libraries/LightSensor}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/BedClock/Libraries/Adafruit_Sensor}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/BedClock/Libraries/DHT}&quot;"/>
 								</option>
 								<inputType id="it.baeyens.arduino.compiler.cpp.sketch.input.1756704646" name="CPP source files" superClass="it.baeyens.arduino.compiler.cpp.sketch.input"/>
 							</tool>
@@ -50,6 +53,9 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/BedClock/Libraries/Sparkfun7SD}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/BedClock/Libraries/Sparkfun7SD-I2C}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/BedClock/Libraries/SoftwareSerial}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/BedClock/Libraries/LightSensor}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/BedClock/Libraries/Adafruit_Sensor}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/BedClock/Libraries/DHT}&quot;"/>
 								</option>
 								<inputType id="it.baeyens.arduino.compiler.c.sketch.input.1955219597" name="C Source Files" superClass="it.baeyens.arduino.compiler.c.sketch.input"/>
 							</tool>

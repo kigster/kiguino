@@ -37,9 +37,24 @@
 			<locationURI>ArduinoPivateLibPath/Adafruit-ST7735-Library</locationURI>
 		</link>
 		<link>
+			<name>Libraries/Adafruit_Sensor</name>
+			<type>2</type>
+			<locationURI>ArduinoPivateLibPath/Adafruit_Sensor</locationURI>
+		</link>
+		<link>
+			<name>Libraries/DHT</name>
+			<type>2</type>
+			<locationURI>ArduinoPivateLibPath/DHT</locationURI>
+		</link>
+		<link>
 			<name>Libraries/DS1307RTC</name>
 			<type>2</type>
 			<locationURI>ArduinoPivateLibPath/DS1307RTC</locationURI>
+		</link>
+		<link>
+			<name>Libraries/LightSensor</name>
+			<type>2</type>
+			<locationURI>ArduinoPivateLibPath/LightSensor</locationURI>
 		</link>
 		<link>
 			<name>Libraries/SPI</name>
@@ -55,16 +70,6 @@
 			<name>Libraries/SoftwareSerial</name>
 			<type>2</type>
 			<locationURI>ArduinoHardwareLibPath/SoftwareSerial</locationURI>
-		</link>
-		<link>
-			<name>Libraries/Sparkfun7SD</name>
-			<type>2</type>
-			<locationURI>ArduinoPivateLibPath/Sparkfun7SD</locationURI>
-		</link>
-		<link>
-			<name>Libraries/Sparkfun7SD-I2C</name>
-			<type>2</type>
-			<locationURI>ArduinoPivateLibPath/Sparkfun7SD-I2C</locationURI>
 		</link>
 		<link>
 			<name>Libraries/Time</name>

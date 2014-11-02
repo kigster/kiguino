@@ -5,55 +5,91 @@
  *      Author: Konstantin Gredeskoul
  *
  *  (c) 2014 All rights reserved.  Please see LICENSE.
+ *
+ *
+ *
+        VCC = 5Volts
+        Gnd = Ground
+        SCL = Pin 13
+        SDA = Pin 11
+      RS/DC = Pin  9
+        RES = Pin  8
+         CS = Pin 10
+
+ * Or sorted by pins:
+        RES = Pin  8
+      RS/DC = Pin  9
+         CS = Pin 10
+        SDA = Pin 11
+        SCL = Pin 13
+ *
  */
 
 #include "TFTManager.h"
+
+static const uint32_t KG_CLR_BLACK 		= ST7735_BLACK;
+static const uint32_t KG_CLR_WHITE 		= ST7735_WHITE;
 
 TFTManager::TFTManager(Adafruit_ST7735 *_tft, int screen_width,
 		int screen_height) {
 	tft = _tft;
 	screen_w = screen_width;
 	screen_h = screen_height;
-	clock.center.x = screen_w / 2;
-	clock.center.y = screen_h / 2;
+	clock.center.x = screen_h / 2 + 3;
+	clock.center.y = screen_h / 2 - 15;
 	clock.radius.clock = screen_w / 3;
 	clock.radius.hour = clock.radius.clock / 2;
-	clock.radius.minute = clock.radius.clock - 10;
+	clock.radius.minute = clock.radius.clock / 3 * 2;
 	clock.radius.second = clock.radius.clock - 5;
 
-	clock.color.background = ST7735_BLACK;
-	clock.color.foreground = ST7735_WHITE;
-	clock.color.circle = ST7735_BLUE;
-	clock.color.hour_hand = ST7735_RED;
-	clock.color.minute_hand = ST7735_WHITE;
-	clock.color.second_hand = ST7735_WHITE;
+//	clock.color.background 	= ST7735_BLACK;
+//	clock.color.foreground 	= ST7735_WHITE;
+//	clock.color.circle 		= ST7735_GREEN;
+//	clock.color.hour_hand 	= ST7735_RED;
+//	clock.color.minute_hand = ST7735_YELLOW;
+//	clock.color.second_hand = ST7735_CYAN;
+	clock.color.background 	= ST7735_BLACK;
+	clock.color.foreground 	= ST7735_WHITE;
+	clock.color.circle 		= ST7735_WHITE;
+	clock.color.hour_hand 	= 0xadfe;
+	clock.color.minute_hand = 0xffef;
+	clock.color.second_hand = 0xfeff;
+	clock.color.text 	    = 0xfa87;
+}
+
+void TFTManager::drawClockCircle() {
+	for (int i = 10; i < 11; i++)
+		tft->drawCircle(clock.center.x, clock.center.y, clock.radius.clock + i,
+				clock.color.text);
+}
+void TFTManager::drawClockRect() {
+	tft->drawRoundRect(5, 10, screen_h - 10, screen_w - 20, 3, clock.color.text);
 }
 
 void TFTManager::begin() {
-	tft->initR(clock.color.background);  // initialize a ST7735S chip, black tab
+	tft->initR(INITR_BLACKTAB);  // initialize a ST7735S chip, black tab
 	tft->fillScreen(clock.color.background);
-	tft->setRotation(0);
+	tft->setRotation(1);
 	tft->setTextWrap(false);
-	tft->setTextSize(1);
 	tft->setTextColor(clock.color.foreground);
 
 	drawHourPointers();
-	for (int i = 10; i < 13; i++)
-		tft->drawCircle(clock.center.x, clock.center.y, clock.radius.clock + i,
-				clock.color.circle);
 }
+void TFTManager::displayText(char *text, uint8_t cursorX, uint8_t cursorY, uint8_t textType, uint8_t textSize) {
+	tft->setTextSize(textSize);
+	if (strcmp(prevText[textType], text) == 0) return;
 
-void TFTManager::displayText(char *text, uint16_t color_foreground,
-		uint16_t color_background, int size) {
-	tft->setCursor(0, 0);
-	tft->setTextColor(color_background);
-	tft->print(prevText);
-	sprintf(prevText, text);
-	tft->setCursor(0, 0);
-	tft->setTextColor(color_foreground);
+	// TODO: optimize this by ONLY printing different characters between old and new.
+	// this should reduce flicker considerably.
+	tft->setCursor(cursorX, cursorY);
+	tft->setTextColor(clock.color.background);
+	tft->print(prevText[textType]);
+	sprintf(prevText[textType], "%s ", text);
+	tft->setCursor(cursorX, cursorY);
+	tft->setTextColor(clock.color.text);
 	tft->print(text);
-}
 
+}
 void TFTManager::displayTime(time_t t) {
 	renderTime(hour(t), minute(t), second(t));
 }
@@ -67,12 +103,13 @@ void TFTManager::drawHourPointers() {
 		x2 = clock.center.x + (clock.radius.second) * sin(angle_hour);
 		y2 = clock.center.y - (clock.radius.second) * cos(angle_hour);
 		if (hour % 3 != 0) {
-			tft->drawLine(x1, y1, x2, y2, ST7735_YELLOW);
+			tft->drawLine(x1, y1, x2, y2, clock.color.foreground);
 		} else {
 			char buffer[4];
 			tft->setCursor(min(x1, x1) - (hour == 0 ? 5 : 2), min(y1, y1) - 5);
-			tft->setTextColor(ST7735_WHITE);
+			tft->setTextColor(clock.color.foreground);
 			sprintf(buffer, "%d", hour == 0 ? 12 : hour);
+			tft->setTextSize(1);
 			tft->print(buffer);
 
 		}

@@ -33,7 +33,8 @@ typedef struct colorsStruct {
 				circle,
 				second_hand,
 				minute_hand,
-				hour_hand;
+				hour_hand,
+				text;
 } colorsType;
 
 typedef struct clockStruct {
@@ -47,7 +48,9 @@ public:
 	TFTManager(Adafruit_ST7735 *tft, int screen_width, int screen_height);
 	void begin();
 	void displayTime(time_t t);
-	void displayText(char *text, uint16_t color_foreground, uint16_t color_background, int size);
+	void displayText(char *text, uint8_t cursorX, uint8_t cursorY, uint8_t textType, uint8_t textSize);
+	void drawClockCircle();
+	void drawClockRect();
 
 	clockType clock;
 private:
@@ -59,8 +62,8 @@ private:
 	int screen_w, screen_h;
 	int last_hour, last_minute, last_second;
 
-	char currentText[256];
-	char prevText[256];
+	char currentText[50];
+	char prevText[5][50];
 };
 
 #endif /* TFTMANAGER_H_ */
