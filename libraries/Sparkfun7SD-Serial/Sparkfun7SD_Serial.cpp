@@ -19,7 +19,7 @@ Sparkfun7SD_Serial::Sparkfun7SD_Serial() {
 	_Serial7Segment = new SoftwareSerial(_pinTx - 1, _pinTx);
 }
 
-void Sparkfun7SD_Serial::init() {
+void Sparkfun7SD_Serial::begin() {
 	_Serial7Segment->begin(9600);
 	clear();
 }
@@ -50,7 +50,7 @@ void Sparkfun7SD_Serial::clear() {
 	endWrite();
 }
 
-void Sparkfun7SD_Serial::brightness(uint8_t value) {
+void Sparkfun7SD_Serial::brightness(byte value) {
 	Sparkfun7SD::brightness(value);
 
 }
@@ -59,7 +59,7 @@ void Sparkfun7SD_Serial::print(String message) {
 	_Serial7Segment->print(message);
 }
 
-void Sparkfun7SD_Serial::write(int value) {
+void Sparkfun7SD_Serial::write(byte value) {
 	_Serial7Segment->write(value);
 }
 

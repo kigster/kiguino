@@ -1,4 +1,5 @@
 /*
+ *
  * Sparkfun7SD.h
  *
  * Sparkfun 7-Segment Display
@@ -33,13 +34,15 @@
 
 class Sparkfun7SD {
 public:
-	virtual void init() = 0;
+	virtual ~Sparkfun7SD() = 0;
+
+	virtual void begin() = 0;
 	virtual void write(byte value) = 0;
 
 	virtual void print(char *message);
 	virtual void decimals(byte bitmask);
 	virtual void clear();
-	virtual void brightness(uint8_t percent);
+	virtual void brightness(byte value);
 	virtual void printUnits(float value, char *type);
 	virtual void printTime(uint8_t hours, uint8_t minutes, bool colonShown);
 protected:
@@ -47,6 +50,6 @@ protected:
 private:
 };
 
-
+inline Sparkfun7SD::~Sparkfun7SD() {}
 
 #endif /* SPARKFUN_7SEGMENT_H_ */

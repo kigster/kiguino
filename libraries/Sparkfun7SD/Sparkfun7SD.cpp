@@ -14,7 +14,7 @@ void Sparkfun7SD::clear() {
 	write(0x76); 			// Reset the display - this forces the cursor to return to the beginning of the display
 }
 
-void Sparkfun7SD::brightness(uint8_t value) {
+void Sparkfun7SD::brightness(byte value) {
 	write(0x7A);            // Brightness control command
 	write(value);           // 0% is dimmest, 100% is brightest
 }
