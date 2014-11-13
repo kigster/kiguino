@@ -53,8 +53,8 @@ TFTManager::TFTManager(Adafruit_ST7735 *_tft, int screen_width,
 	clock.color.circle 		= ST7735_WHITE;
 	clock.color.hour_hand 	= 0xadfe;
 	clock.color.minute_hand = 0xffef;
-	clock.color.second_hand = 0xfeff;
 	clock.color.text 	    = 0xfa87;
+	clock.color.second_hand = 0xfeff;
 }
 
 void TFTManager::drawClockCircle() {
@@ -72,7 +72,6 @@ void TFTManager::begin() {
 	tft->setRotation(1);
 	tft->setTextWrap(false);
 	tft->setTextColor(clock.color.foreground);
-
 	drawHourPointers();
 }
 void TFTManager::displayText(char *text, uint8_t cursorX, uint8_t cursorY, uint8_t textType, uint8_t textSize) {

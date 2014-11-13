@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include <Wire.h>
 #include <Time.h>
 #include <DS1307RTC.h>
@@ -20,11 +21,13 @@ const uint8_t pinDHT = 7;
 
 #define ENABLE_TFT
 //#define ENABLE_7SD
-#define ENABLE_LIGHT
-#define ENABLE_DHT
+//#define ENABLE_LIGHT
+//#define ENABLE_DHT
+
+#define LIGHT_THRESHOLD 200
 
 #ifdef ENABLE_LIGHT
-LightSensor 			light 	= LightSensor(pinPhotoresistor, 200);
+LightSensor 			light 	= LightSensor(pinPhotoresistor, LIGHT_THRESHOLD);
 #endif
 
 #ifdef ENABLE_7SD
@@ -44,7 +47,7 @@ SimpleTimer 			timer(1);
 
 char buf[64] = "";
 bool colonOn = false;
-
+bool displayInverted = false;
 
 typedef struct configStruct  {
 	float temperatureDHTinF;
@@ -148,6 +151,14 @@ void readLighting(int timer) {
 	config.lighting = light.getLightReading();
 	// percent
 	config.brightness = constrain(config.lighting * 100 / 1023, 1, 100);
+
+	if (light.lightsOn() && !displayInverted) {
+		displayInverted = true;
+		clock.tft->invertDisplay(displayInverted);
+	} else if (!light.lightsOn() && displayInverted) {
+		displayInverted = false ;
+		clock.tft->invertDisplay(displayInverted);
+	}
 #endif
 }
 
@@ -172,6 +183,8 @@ void setup() {
 #ifdef ENABLE_LIGHT
 	light.init();
 #endif
+
+	setTime();
 
 	timer.setInterval(1500,  &printTemp);
 	timer.setInterval(500,   &printTime);

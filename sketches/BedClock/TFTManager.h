@@ -52,18 +52,18 @@ public:
 	void drawClockCircle();
 	void drawClockRect();
 
+	Adafruit_ST7735 *tft;
 	clockType clock;
 private:
 	void drawHourPointers();
 	void renderTime(int hour, int minute, int second);
 	void renderTime(int hour, int minute, int second, colorsType color);
 
-	Adafruit_ST7735 *tft;
 	int screen_w, screen_h;
 	int last_hour, last_minute, last_second;
 
-	char currentText[50];
-	char prevText[5][50];
+	char currentText[20];
+	char prevText[5][20];
 };
 
 #endif /* TFTMANAGER_H_ */
