@@ -5,8 +5,11 @@ set -e
 readonly LIB_DIR="$1"
 
 function usage {
-  echo "Usage: $0 <arduino lib directory>"
+  echo "Usage: $0 <destination directory>"
   echo "   eg: $0 ~/Documents/Arduino/libraries"
+  echo
+  echo "Run this utility from the directory where libraries or sketches"
+  echo "are stored, for example: cd arduino/libraries && install ~/Documents/Arduino/libraries"
 }
 
 if [ -z "${LIB_DIR}" ]; then

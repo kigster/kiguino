@@ -5,7 +5,7 @@ set -e
 readonly LIB_DIR="$1"
 
 function usage {
-  echo "Usage: $0 <arduino lib directory>"
+  echo "Usage: $0 <destination directory>>"
   echo "   eg: $0 ~/Documents/Arduino/libraries"
 }
 
