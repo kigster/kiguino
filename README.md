@@ -11,15 +11,15 @@ Libraries are provided with a simple shell script that should work on Mac OS-X o
 
 ```bash
 cd ~/Documents/Arduino
-git clone https://github.com/kigster/Kiguino.git
-cd Kiguino/arduino/libraries
+git clone https://github.com/kigster/kiguino.git
+cd kiguino/arduino/libraries
 ../../install ~/Documents/Arduino/libraries
 ```
 
 Or for Teensy3:
 
 ```bash
-cd ~/Documents/Arduino/Kiguino/teensy3/libraries
+cd ~/Documents/Arduino/kiguino/teensy3/libraries
 ../../install ~/Documents/Arduino/libraries
 ```
   
