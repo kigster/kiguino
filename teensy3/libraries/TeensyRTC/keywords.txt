@@ -1,0 +1,8 @@
+TeensyRTC	KEYWORD1
+TeensyRTC	KEYWORD2
+begin	KEYWORD2
+initRTC	KEYWORD2
+currentTime	KEYWORD2
+compileTime	KEYWORD2
+processSyncMessage	KEYWORD2
+formatTime	KEYWORD2
