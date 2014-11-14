@@ -34,22 +34,23 @@
 
 class Sparkfun7SD {
 public:
-	virtual ~Sparkfun7SD() = 0;
+    virtual ~Sparkfun7SD() = 0;
 
-	virtual void begin() = 0;
-	virtual void write(byte value) = 0;
+    virtual void begin() = 0;
+    virtual void write(byte value) = 0;
 
-	virtual void print(char *message);
-	virtual void decimals(byte bitmask);
-	virtual void clear();
-	virtual void brightness(byte value);
-	virtual void printUnits(float value, char *type);
-	virtual void printTime(uint8_t hours, uint8_t minutes, bool colonShown);
+    virtual void print(char *message);
+    virtual void decimals(byte bitmask);
+    virtual void clear();
+    virtual void brightness(byte value);
+    virtual void printUnits(float value, char *type);
+    virtual void printTime(uint8_t hours, uint8_t minutes, bool colonShown);
 protected:
-	char _buffer[DIGITS + 1];
+    char _buffer[DIGITS + 1];
 private:
 };
 
-inline Sparkfun7SD::~Sparkfun7SD() {}
+inline Sparkfun7SD::~Sparkfun7SD() {
+}
 
 #endif /* SPARKFUN_7SEGMENT_H_ */
