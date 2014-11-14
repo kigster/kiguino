@@ -23,7 +23,6 @@ public:
 	time_t compileTime();
 	void initRTC(time_t t);
 	void initRTC();
-	unsigned long processSyncMessage();
 	void formatTime(char *buffer, time_t t);
 private:
 	bool scanTime(tmElements_t *tm, char *str);
