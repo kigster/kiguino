@@ -22,6 +22,9 @@
 #include <SoftwareSerial.h>
 #include <Sparkfun7SD.h>
 
+#include <Time.h>
+
+
 #define SERIAL7SD_BAUD_CONTROL 0x7F
 #define SERIAL_LCD_DEFAULT_HEIGHT 2
 
