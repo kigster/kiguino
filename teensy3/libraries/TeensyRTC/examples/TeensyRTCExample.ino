@@ -35,6 +35,6 @@ void setup() {
 }
 
 void loop() {
-    logTime();
-    delay(1000);
+	logTime();
+	delay(1000);
 }
