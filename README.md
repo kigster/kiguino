@@ -12,13 +12,20 @@ Libraries are provided with a simple shell script that should work on Mac OS-X o
 ```bash
 cd ~/Documents/Arduino
 git clone https://github.com/kigster/Kiguino.git
-cd Kiguino/libraries
-bash -x install.sh ~/Documents/Arduino
+cd Kiguino/arduino/libraries
+../../install ~/Documents/Arduino/libraries
+```
+
+Or for Teensy3:
+
+```bash
+cd ~/Documents/Arduino/Kiguino/teensy3/libraries
+../../install ~/Documents/Arduino/libraries
 ```
   
 ## Author
 
-(c) 2014 Konstantin Gredeskoul, @kigster on github, @kig on twitter
+&copy; 2014 Konstantin Gredeskoul, @kigster on github, @kig on twitter
 
 Distributed under MIT License.
 
