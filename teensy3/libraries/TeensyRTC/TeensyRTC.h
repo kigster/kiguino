@@ -13,8 +13,6 @@
 #include <Time.h>
 #include <Arduino.h>
 
-#define TIME_HEADER  "T"
-
 class TeensyRTC {
 public:
 	TeensyRTC();
