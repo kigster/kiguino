@@ -28,25 +28,24 @@
 
 #define DEFAULT_I2C_ADDRESS 0x71
 
-class Sparkfun7SD_I2C : public Sparkfun7SD {
+class Sparkfun7SD_I2C: public Sparkfun7SD {
 public:
-	Sparkfun7SD_I2C(byte i2cAddress);
-	Sparkfun7SD_I2C();
+    Sparkfun7SD_I2C(byte i2cAddress);
+    Sparkfun7SD_I2C();
 
-	virtual void init();
-	virtual void write(byte value);
-	virtual void print(char *message);
-	virtual void beginWrite();
-	virtual void endWrite();
-	virtual void decimals(byte bitmask);
+    virtual void init();
+    virtual void write(byte value);
+    virtual void print(char *message);
+    virtual void beginWrite();
+    virtual void endWrite();
+    virtual void decimals(byte bitmask);
 
-	virtual void clear();
-	virtual void brightness(uint8_t percent);
-	virtual void printUnits(float value, char *type);
-	virtual void printTime(uint8_t hours, uint8_t minutes, bool colonShown);
+    virtual void clear();
+    virtual void brightness(byte value);
+    virtual void printUnits(float value, char *type);
+    virtual void printTime(uint8_t hours, uint8_t minutes, bool colonShown);
 private:
-	byte _address;
+    byte _address;
 };
-
 
 #endif /* SPARKFUN_I2C_7SEGMENT_H_ */

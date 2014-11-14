@@ -11,63 +11,64 @@
 #include <Sparkfun7SD_I2C.h>
 
 Sparkfun7SD_I2C::Sparkfun7SD_I2C(byte address) {
-	_address = address;
+    _address = address;
 }
 
 Sparkfun7SD_I2C::Sparkfun7SD_I2C() {
-	_address = DEFAULT_I2C_ADDRESS;
+    _address = DEFAULT_I2C_ADDRESS;
 }
 
 void Sparkfun7SD_I2C::init() {
-	Wire.begin();
-	clear();
+    Wire.begin();
+    clear();
 }
 
 void Sparkfun7SD_I2C::write(byte value) {
-	Wire.write(value);
+    Wire.write(value);
 }
 
 void Sparkfun7SD_I2C::beginWrite() {
-	Wire.beginTransmission(_address);
+    Wire.beginTransmission(_address);
 }
 
 void Sparkfun7SD_I2C::endWrite() {
-	Wire.endTransmission();
+    Wire.endTransmission();
 }
 
 void Sparkfun7SD_I2C::print(char *message) {
-	beginWrite();
-	Sparkfun7SD::print(message);
-	endWrite();
+    beginWrite();
+    Sparkfun7SD::print(message);
+    endWrite();
 }
 
 void Sparkfun7SD_I2C::decimals(byte bitmask) {
-	beginWrite();
-	Sparkfun7SD::decimals(bitmask);
-	endWrite();
+    beginWrite();
+    Sparkfun7SD::decimals(bitmask);
+    endWrite();
 }
 
 void Sparkfun7SD_I2C::clear() {
-	beginWrite();
-	Sparkfun7SD::clear();
-	endWrite();
+    beginWrite();
+    Sparkfun7SD::clear();
+    endWrite();
 }
 
-void Sparkfun7SD_I2C::brightness(uint8_t value) {
-	beginWrite();
-	Sparkfun7SD::brightness(value);
-	endWrite();
+void Sparkfun7SD_I2C::brightness(byte value) {
+    beginWrite();
+    Sparkfun7SD::brightness(value);
+    endWrite();
 }
 
 void Sparkfun7SD_I2C::printUnits(float value, char *type) {
-	beginWrite();
-	Sparkfun7SD::printUnits(value, type);
-	endWrite();
+    beginWrite();
+    Sparkfun7SD::printUnits(value, type);
+    endWrite();
 }
 
-void Sparkfun7SD_I2C::printTime(uint8_t hours, uint8_t minutes, bool colonShown) {
-	beginWrite();
-	Sparkfun7SD::printTime(hours, minutes, colonShown);
-	endWrite();
+void Sparkfun7SD_I2C::printTime(uint8_t hours, uint8_t minutes,
+        bool colonShown) {
+    beginWrite();
+    Sparkfun7SD::printTime(hours, minutes, colonShown);
+    endWrite();
 }
 
