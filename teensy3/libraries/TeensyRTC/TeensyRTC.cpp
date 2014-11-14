@@ -19,7 +19,8 @@ TeensyRTC::TeensyRTC() {
 }
 
 void TeensyRTC::begin() {
-	if (timeStatus() != timeSet || currentTime() < 100) {
+	// give 10 seconds from program start
+	if (timeStatus() == timeNotSet || currentTime() < 10) {
 		initRTC();
 		delay(20);
 	}
