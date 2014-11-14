@@ -16,25 +16,25 @@ TeensyRTC rtc;
 char stringBuffer[20];
 
 time_t getTeensy3Time() {
-	return Teensy3Clock.get();
+    return Teensy3Clock.get();
 }
 
 void logTime() {
-	rtc.formatTime(stringBuffer, rtc.currentTime());
-	Serial.print("Current Time: ");
-	Serial.println(stringBuffer);
+    rtc.formatTime(stringBuffer, rtc.currentTime());
+    Serial.print("Current Time: ");
+    Serial.println(stringBuffer);
 }
 
 void setup() {
-	setSyncProvider(getTeensy3Time);
+    setSyncProvider(getTeensy3Time);
 
-	Serial.begin(115200);
-	Serial.println("Starting sketch TeensyRTCExample");
+    Serial.begin(115200);
+    Serial.println("Starting sketch TeensyRTCExample");
 
-	rtc.begin();
+    rtc.begin();
 }
 
 void loop() {
-	logTime();
-	delay(1000);
+    logTime();
+    delay(1000);
 }
