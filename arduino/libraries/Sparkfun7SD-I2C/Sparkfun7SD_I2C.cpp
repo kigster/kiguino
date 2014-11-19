@@ -8,7 +8,7 @@
  */
 
 #include <Sparkfun7SD.h>
-#include <Sparkfun7SD_I2C.h>
+#include "Sparkfun7SD_I2C.h"
 
 Sparkfun7SD_I2C::Sparkfun7SD_I2C(byte address) {
     _address = address;
@@ -18,7 +18,7 @@ Sparkfun7SD_I2C::Sparkfun7SD_I2C() {
     _address = DEFAULT_I2C_ADDRESS;
 }
 
-void Sparkfun7SD_I2C::init() {
+void Sparkfun7SD_I2C::begin() {
     Wire.begin();
     clear();
 }

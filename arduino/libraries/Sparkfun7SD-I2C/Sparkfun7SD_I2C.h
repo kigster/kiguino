@@ -27,13 +27,14 @@
 #endif
 
 #define DEFAULT_I2C_ADDRESS 0x71
-
-class Sparkfun7SD_I2C: public Sparkfun7SD {
+#include <Sparkfun7SD.h>
+class Sparkfun7SD_I2C : public Sparkfun7SD {
 public:
     Sparkfun7SD_I2C(byte i2cAddress);
     Sparkfun7SD_I2C();
+    virtual ~Sparkfun7SD_I2C();
 
-    virtual void init();
+    virtual void begin();
     virtual void write(byte value);
     virtual void print(char *message);
     virtual void beginWrite();
@@ -47,5 +48,6 @@ public:
 private:
     byte _address;
 };
+inline Sparkfun7SD_I2C::~Sparkfun7SD_I2C() {}
 
 #endif /* SPARKFUN_I2C_7SEGMENT_H_ */

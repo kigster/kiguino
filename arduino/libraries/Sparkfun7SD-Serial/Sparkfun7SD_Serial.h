@@ -39,7 +39,7 @@ public:
     virtual ~Sparkfun7SD_Serial();
     virtual void begin();
     virtual void write(byte value);
-    virtual void print(String message);
+    virtual void print(char * message);
     virtual void beginWrite();
     virtual void endWrite();
 
