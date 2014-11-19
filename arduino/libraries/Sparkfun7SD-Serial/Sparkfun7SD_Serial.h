@@ -3,6 +3,8 @@
  *
  * Sparkfun 7-Segment Serial Display
  *
+ * For more info: https://learn.sparkfun.com/tutorials/using-the-serial-7-segment-display
+ *
  *  Created on: Sep 25 2014
  *      Author: Konstantin Gredeskoul
  *

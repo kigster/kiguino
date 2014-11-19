@@ -15,7 +15,7 @@ Sparkfun7SD_I2C::Sparkfun7SD_I2C(byte address) {
 }
 
 Sparkfun7SD_I2C::Sparkfun7SD_I2C() {
-    _address = DEFAULT_I2C_ADDRESS;
+    _address = SPARKFUN_7SD_DEFAULT_I2C_ADDRESS;
 }
 
 void Sparkfun7SD_I2C::begin() {

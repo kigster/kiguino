@@ -5,7 +5,9 @@
  * Sparkfun 7-Segment Display
  *
  * Abstract Top level implementation, subclaases define anything
- * communications specific
+ * communications specific.
+ *
+ * For more info: https://learn.sparkfun.com/tutorials/using-the-serial-7-segment-display
  *
  *  Created on: Oct 19 2014
  *      Author: Konstantin Gredeskoul

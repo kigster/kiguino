@@ -2,6 +2,7 @@
  * Sparkfun7SD_I2C.h
  *
  * Sparkfun 7-Segment Display, controlled via I2C
+ * For more info: https://learn.sparkfun.com/tutorials/using-the-serial-7-segment-display
  *
  *  Created on: Sep 25 2014
  *      Author: Konstantin Gredeskoul
@@ -26,8 +27,10 @@
 #include <Wire.h>
 #endif
 
-#define DEFAULT_I2C_ADDRESS 0x71
 #include <Sparkfun7SD.h>
+
+#define SPARKFUN_7SD_DEFAULT_I2C_ADDRESS 0x71
+
 class Sparkfun7SD_I2C : public Sparkfun7SD {
 public:
     Sparkfun7SD_I2C(byte i2cAddress);
