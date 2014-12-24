@@ -9,60 +9,38 @@
 
 #include "RotaryEncoderWithButton.h"
 
-RotaryEncoderWithButton::RotaryEncoderWithButton(
-		uint8_t rotaryPinA,
-		uint8_t rotaryPinB,
-		uint8_t buttonPin) {
+RotaryEncoderWithButton::RotaryEncoderWithButton(uint8_t rotaryPinA, uint8_t rotaryPinB, uint8_t buttonPin) {
 
-	_lastButtonPressedAt = 0;
-	_rotaryPinA = rotaryPinA;
-	_rotaryPinB = rotaryPinB;
-	_buttonPin = buttonPin;
-	_hasNotReadRotary = true;
-	encoder = new Encoder(rotaryPinA, rotaryPinB);
+    rotaryLeft = rotaryPinA;
+    rotaryRight = rotaryPinB;
+    encoder = new Encoder(rotaryPinA, rotaryPinB);
+    button = new OneButton(buttonPin, true);
+    lastEncoderValue = 0;
+    lastValueChangeAt = INITIAL_VALUE;
 }
 
-void RotaryEncoderWithButton::begin() {
-	pinMode(_rotaryPinA, INPUT);
-	pinMode(_rotaryPinB, INPUT);
-	pinMode(_buttonPin, INPUT);
-	digitalWrite(_rotaryPinA, HIGH);
-	digitalWrite(_rotaryPinB, HIGH);
-	digitalWrite(_buttonPin, HIGH);
+void RotaryEncoderWithButton::tick() {
+    button->tick();
 }
 
-uint32_t RotaryEncoderWithButton::rotaryDelta() {
-	uint32_t knobValue = encoder->read();
-	if (_hasNotReadRotary) {
-		_lastRotaryValue = knobValue;
-		_hasNotReadRotary = false;
-	}
-
-	uint32_t delta = _lastRotaryValue - knobValue;
-	_lastRotaryValue = knobValue;
-	return delta;
+signed long RotaryEncoderWithButton::delta() {
+    signed long newEncoderPosition = encoder->read();
+    signed long delta = 0;
+    if (lastValueChangeAt == 0 || millis() - lastValueChangeAt > ENCODER_DEBOUNCE_DELAY) {
+        if (newEncoderPosition - lastEncoderValue != 0 && lastEncoderValue != INITIAL_VALUE) {
+            delta = lastEncoderValue - newEncoderPosition;
+        }
+        lastEncoderValue = newEncoderPosition;
+        lastValueChangeAt = millis();
+    }
+    return delta;
 }
 
-bool RotaryEncoderWithButton::buttonClicked() {
-	bool currentState;
-	bool previousState;
-	bool pressed = false;
-
-	if (millis() - _lastButtonPressedAt < BUTTON_PRESS_DELAY)
-		return false;
-
-	previousState = currentState = digitalRead(_buttonPin);      // store switch state
-	for (int counter = 0; counter < DEBOUNCE_DELAY; counter++) {
-		delay(1); // wait for 1 millisecond
-		currentState = digitalRead(_buttonPin);  // read the pin
-		if (currentState != previousState) {
-			pressed = true;
-			_lastButtonPressedAt = millis();
-			//counter = 0; // reset the counter if the state changes
-			previousState = currentState;  // and save the current currentState
-		}
-	}
-
-	// here when the switch currentState has been stable longer than the debounce period
-	return pressed;
+OneButton *RotaryEncoderWithButton::getButton() {
+    return button;
 }
+
+Encoder *RotaryEncoderWithButton::getEncoder() {
+    return encoder;
+}
+

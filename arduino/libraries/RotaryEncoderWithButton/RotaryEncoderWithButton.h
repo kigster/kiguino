@@ -9,6 +9,10 @@
  *  Example of such Rotary Encoder is this one:
  *  https://www.adafruit.com/products/377
  *
+ *  Dependencies:
+ *  - Encoder
+ *  - OneButton
+ *
  */
 
 #ifndef RotaryEncoderWithButton_H_
@@ -21,27 +25,26 @@
 #include <pins_arduino.h>
 #endif
 
+#define ENCODER_DEBOUNCE_DELAY 4
+#define ENCODER_USE_INTERRUPTS
+#define INITIAL_VALUE          0
+
 #include <Encoder.h>
-
-#define DEBOUNCE_DELAY 		50
-
-// once you press the button, no other events to the button matter
-// until this time has passed.
-#define BUTTON_PRESS_DELAY 300
+#include <OneButton.h>
 
 class RotaryEncoderWithButton {
 public:
-	RotaryEncoderWithButton(uint8_t rotaryPinA, uint8_t rotaryPinB, uint8_t buttonPin);
-	void begin();
-	bool buttonClicked();
-	uint32_t rotaryDelta();
-
-	Encoder *encoder;
+	RotaryEncoderWithButton(uint8_t rotaryPinA, uint8_t rotaryPinB, uint8_t pinButton);
+	void tick();
+	signed long delta();
+	OneButton *getButton();
+	Encoder *getEncoder();
 private:
-	uint8_t _rotaryPinA, _rotaryPinB, _buttonPin;
-	bool _hasNotReadRotary;
-	unsigned long int _lastButtonPressedAt;
-	signed long int _lastRotaryValue;
+    Encoder *encoder;
+	OneButton *button;
+	uint8_t rotaryLeft, rotaryRight;
+	signed long lastEncoderValue;
+	long lastValueChangeAt;
 };
 
 #endif /* RotaryEncoderWithButton_H_ */
