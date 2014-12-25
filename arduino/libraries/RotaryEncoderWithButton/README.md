@@ -50,7 +50,7 @@ void setup() {
 
     // get the button and setup callbacks
     button = rotary.getButton();
-    button.attachClick(buttonClick);
+    button->attachClick(buttonClick);
 }
 
 void loop() {
