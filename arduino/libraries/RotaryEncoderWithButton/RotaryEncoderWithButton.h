@@ -35,14 +35,15 @@
 class RotaryEncoderWithButton {
 public:
 	RotaryEncoderWithButton(uint8_t rotaryPinA, uint8_t rotaryPinB, uint8_t pinButton);
+	RotaryEncoderWithButton(uint8_t rotaryPinA, uint8_t rotaryPinB, uint8_t buttonPin, int buttonActiveLow);
+
 	void tick();
 	signed long delta();
-	OneButton *getButton();
-	Encoder *getEncoder();
+
+	Encoder encoder;
+    OneButton button;
 private:
-    Encoder *encoder;
-	OneButton *button;
-	uint8_t rotaryLeft, rotaryRight;
+
 	signed long lastEncoderValue;
 	long lastValueChangeAt;
 };

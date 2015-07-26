@@ -14,13 +14,13 @@
  *  Created on: Aug 9, 2014
  *      Author: Konstantin Gredeskoul
  *
- *  (c) 2014 All rights reserved.  Please see LICENSE.
+ *  (c) 2014-20015 All rights reserved.  Please see LICENSE.
  */
 
 #include <OneButton.h>
 #include <RotaryEncoderWithButton.h>
 
-RotaryEncoderWithButton rotary(2,3,4);
+RotaryEncoderWithButton rotary(2, 3, 4);
 
 void rotaryButtonClick() {
     Serial.println("Button 1-CLICK");
@@ -36,10 +36,10 @@ void rotaryButtonHold() {
 }
 void setup() {
     Serial.begin(9600);
-    OneButton *b = rotary.getButton();
-    b->attachClick(rotaryButtonClick);
-    b->attachDoubleClick(rotaryButtonDoubleClick);
-    b->attachLongPressStop(rotaryButtonHold);
+    OneButton &b = &rotary.button;
+    b.attachClick(rotaryButtonClick);
+    b.attachDoubleClick(rotaryButtonDoubleClick);
+    b.attachLongPressStop(rotaryButtonHold);
 }
 
 signed long oldValue = 0;
@@ -47,7 +47,8 @@ signed long oldValue = 0;
 void loop() {
     signed long delta = rotary.delta();
     if (delta != 0) {
-        Serial.print("Rotary moved by "); Serial.println(delta);
+        Serial.print("Rotary moved by ");
+        Serial.println(delta);
     }
 
     rotary.tick();
